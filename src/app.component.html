@@ -1,0 +1,23 @@
+
+<div class="flex h-screen bg-gray-100 text-gray-800">
+  <!-- Sidebar -->
+  <app-sidebar [currentView]="currentView()" (navigate)="onNavigate($event)"></app-sidebar>
+
+  <!-- Main content -->
+  <div class="flex flex-col flex-1 overflow-y-auto">
+    <!-- Header -->
+    <app-header></app-header>
+
+    <!-- Content Area -->
+    <main class="p-6 sm:p-10 flex-1">
+      @switch (currentView()) {
+        @case ('dashboard') {
+          <app-dashboard></app-dashboard>
+        }
+        @case ('students') {
+          <app-student-management></app-student-management>
+        }
+      }
+    </main>
+  </div>
+</div>

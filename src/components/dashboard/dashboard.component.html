@@ -1,0 +1,108 @@
+
+<div>
+  <h1 class="text-3xl font-bold text-gray-800">Welcome back, Admin!</h1>
+  <p class="mt-2 text-lg text-gray-600">Here's a snapshot of your institution's performance.</p>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 gap-6 mt-6 sm:grid-cols-2 lg:grid-cols-4">
+    <!-- Total Students Card -->
+    <div class="p-6 bg-white rounded-lg shadow-md">
+      <div class="flex items-center">
+        <div class="flex items-center justify-center w-12 h-12 bg-blue-500 rounded-md text-white">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+          </svg>
+        </div>
+        <div class="ml-4">
+          <p class="text-sm font-medium text-gray-500">Total Students</p>
+          @if (isLoading()) {
+             <div class="w-24 h-8 mt-1 bg-gray-200 rounded animate-pulse"></div>
+          } @else {
+             <p class="text-3xl font-bold text-gray-800">{{ studentCount() }}</p>
+          }
+        </div>
+      </div>
+       @if (!isLoading()) {
+          <p class="mt-2 text-sm text-green-600">+5.4% from last month</p>
+       }
+    </div>
+    
+    @for(stat of stats; track stat.label) {
+      <div class="p-6 bg-white rounded-lg shadow-md">
+        <div class="flex items-center">
+          <div class="flex items-center justify-center w-12 h-12 rounded-md text-white" [class]="stat.color">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="stat.icon"></path>
+            </svg>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">{{ stat.label }}</p>
+            <p class="text-3xl font-bold text-gray-800">{{ stat.value }}</p>
+          </div>
+        </div>
+        <p class="mt-2 text-sm text-green-600">{{ stat.change }}</p>
+      </div>
+    }
+  </div>
+
+  <!-- Charts and other widgets -->
+  <div class="grid grid-cols-1 gap-6 mt-8 lg:grid-cols-2">
+    <!-- Enrollment Trend Chart -->
+    <div class="p-6 bg-white rounded-lg shadow-md">
+      <h3 class="text-lg font-semibold text-gray-700">Enrollment Trends</h3>
+      <div class="mt-4 h-64 flex items-end space-x-4">
+        <!-- A simple bar chart representation -->
+        <div class="flex flex-col items-center flex-1">
+            <div class="bg-blue-500 w-full rounded-t-md" style="height: 60%;"></div>
+            <span class="mt-2 text-sm text-gray-500">2023</span>
+        </div>
+        <div class="flex flex-col items-center flex-1">
+            <div class="bg-blue-500 w-full rounded-t-md" style="height: 75%;"></div>
+            <span class="mt-2 text-sm text-gray-500">2024</span>
+        </div>
+        <div class="flex flex-col items-center flex-1">
+            <div class="bg-blue-500 w-full rounded-t-md" style="height: 85%;"></div>
+            <span class="mt-2 text-sm text-gray-500">2025</span>
+        </div>
+        <div class="flex flex-col items-center flex-1">
+            <div class="bg-blue-400 w-full rounded-t-md" style="height: 90%;"></div>
+            <span class="mt-2 text-sm text-gray-500">2026</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Recent Activity -->
+    <div class="p-6 bg-white rounded-lg shadow-md">
+      <h3 class="text-lg font-semibold text-gray-700">Recent Activity</h3>
+      <ul class="mt-4 space-y-4">
+        <li class="flex items-center">
+          <div class="flex-shrink-0 w-10 h-10 bg-green-200 rounded-full flex items-center justify-center">
+             <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01"></path></svg>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-800">New fee payment from Anjali Sharma</p>
+            <p class="text-sm text-gray-500">2 minutes ago</p>
+          </div>
+        </li>
+        <li class="flex items-center">
+          <div class="flex-shrink-0 w-10 h-10 bg-yellow-200 rounded-full flex items-center justify-center">
+             <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-800">Prof. Kumar submitted final grades</p>
+            <p class="text-sm text-gray-500">1 hour ago</p>
+          </div>
+        </li>
+        <li class="flex items-center">
+          <div class="flex-shrink-0 w-10 h-10 bg-blue-200 rounded-full flex items-center justify-center">
+             <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-800">Next academic event: Mid-term exams</p>
+            <p class="text-sm text-gray-500">In 3 days</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
